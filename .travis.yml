@@ -12,8 +12,3 @@ deploy:
   region: eu-gb
   api: api.eu-gb.bluemix.net
   on: master
-  name: PortalStypendialny
-  random-route: true
-  path: target/portalstypendialny-0.0.1-SNAPSHOT.war
-  memory: 128M
-  instances: 1
