@@ -1,6 +1,6 @@
-applications:
-- name: PortalStypendialny
- random-route: true
- path: target/portalstypendialny-0.0.1-SNAPSHOT.war
- memory: 128M
- instances: 1
+  applications:
+   - name: PortalStypendialny
+     random-route: true
+     path: target/portalstypendialny-0.0.1-SNAPSHOT.war
+     memory: 256M
+     instances: 1
