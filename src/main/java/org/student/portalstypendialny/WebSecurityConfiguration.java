@@ -34,7 +34,7 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
                     return new User(student.getLogin(),"{noop}"+student.getPassword(),true,true,true,true
                     ,AuthorityUtils.createAuthorityList("USER"));
                 }else {
-                    throw new UsernameNotFoundException("Uuser not found");
+                    throw new UsernameNotFoundException("User not found");
                 }
             }
         };
