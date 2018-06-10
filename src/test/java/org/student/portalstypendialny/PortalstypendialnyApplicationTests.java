@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class PortalstypendialnyApplicationTests {
 
     @Test
-    public void contextLoads() {
+    public void defaultTest() {
         Assert.assertEquals(2,0+2);
     }
 
