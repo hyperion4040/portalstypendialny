@@ -1,0 +1,14 @@
+language: java
+jdk: oraclejdk9
+install: mvn install
+script: mvn verify
+deploy:
+  edge: true
+  provider: bluemixcloudfoundry
+  username: ga34446@student.wsb.gda.pl
+  password: $IBM_PASS
+  organization: ga34446@student.wsb.gda.pl
+  space: dev
+  region: eu-gb
+  api: api.eu-gb.bluemix.net
+  on: master
