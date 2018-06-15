@@ -57,7 +57,7 @@ public class PortalstypendialnyApplicationTests {
         mvc
                 .perform(get("/student")
                         .with(user("hyperion").password("ro").roles("USER")))
-                .andExpect(status().isOk());
+                .andExpect(status().is4xxClientError());
     }
     @Test
     public void securityTest() throws Exception {
