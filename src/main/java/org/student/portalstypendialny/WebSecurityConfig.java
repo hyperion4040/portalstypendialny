@@ -12,8 +12,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/data").permitAll()
+                .antMatchers("/","/data","/registration","/send","/postregister").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -21,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
 
 
     }
@@ -36,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManager(user);
 
     }*/
-
 
 
 }

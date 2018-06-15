@@ -11,38 +11,31 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Student {
 
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
 
-    @NonNull
+
+    @Id
     @Column(name = "login")
     private String login;
 
-    @NonNull
     @Column(name = "emal", nullable = false, unique = true)
     @Email(message = "Please enter valid email")
     @NotNull(message = "Please enter email")
     private String email;
-    @NonNull
     @Column(name = "password")
     @Transient
     private String password;
-    @NonNull
     @Column(name = "first_name")
-    @NotNull(message = "Please enter first name into")
-    private String firstName;
+    @NotNull(message = "Wprowadz kierunek studiów")
+    private String studentProgram;
 
-    @NonNull
-    @Column(name = "last_name")
-    @NotNull(message = "Please enter a last name")
-    private String lastName;
+    @Column(name = "year")
+    @NotNull(message = "Wprowadz rok studiów na jakich jesteś")
+    private int year;
 
 }
 
