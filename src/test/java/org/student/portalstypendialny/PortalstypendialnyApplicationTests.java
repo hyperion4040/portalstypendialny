@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.student.portalstypendialny.student.Student;
@@ -109,14 +108,7 @@ public class PortalstypendialnyApplicationTests {
     }
 
 
-    @Test
-    @WithUserDetails(value = "hyperion")
-    public void returnMessageForAuthenticatedUser() throws Exception {
-        mvc
-                .perform(MockMvcRequestBuilders.get("/student"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Witaj Adrian, to jest zabezpieczenie")));
-    }
+
 
 
     @Test
@@ -128,14 +120,14 @@ public class PortalstypendialnyApplicationTests {
                 .andExpect(authenticated());
     }
 
-    @Test
+    /*@Test
     @WithUserDetails
     public void testStudentsName() throws Exception {
         mvc
                 .perform(get("/students"))
                 .andExpect(content().string(containsString("[\"Sebastian\",\"Mateusz\"]")));
 
-    }
+    }*/
 
 
     @Test
