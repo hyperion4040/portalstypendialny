@@ -16,7 +16,6 @@ public class StudentController {
        return studentRepository.findByLogin(login);
     }
 
-
     @PostMapping("/registration")
     public ResponseEntity postRegister(@RequestBody Student student){
         studentRepository.save(student);
