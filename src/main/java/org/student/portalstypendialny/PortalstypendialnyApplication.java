@@ -6,10 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.student.portalstypendialny.przedmiot.Przedmiot;
 import org.student.portalstypendialny.student.Student;
 import org.student.portalstypendialny.student.StudentRepository;
 import org.student.portalstypendialny.user.User;
 import org.student.portalstypendialny.user.UserRepository;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = {StudentRepository.class})
@@ -30,10 +34,17 @@ public class PortalstypendialnyApplication {
     @Bean
     CommandLineRunner init(final StudentRepository studentRepository){
         return args -> {
-
+            Przedmiot przedmiot = new Przedmiot("Programowanie w języku java");
+            Przedmiot przedmiot2 = new Przedmiot("Programowanie w języku c++");
+            przedmiot.setOcenaCwiczenia(4);
+            przedmiot2.setOcenaWyklad(4);
+            przedmiot2.setOcenaCwiczenia(5);
+            List<Przedmiot> list = new LinkedList<>();
+            list.add(przedmiot);
+            list.add(przedmiot2);
             studentRepository.save(
-                    new Student("hyperion","hyp@com","ro","CS",2)
-            );
+                    new Student("hyperion","hyp@com","ro","CS",2,list));
+
             userRepository.deleteAll();
             userRepository.save(new User("ultronik","Light"));
             User user1 = userRepository.findByUsername("ultronik");

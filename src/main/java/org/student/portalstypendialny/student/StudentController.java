@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.student.portalstypendialny.przedmiot.Przedmiot;
+
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -37,6 +40,26 @@ public class StudentController {
     @GetMapping("/test")
     public Student returnTestStudentObject(){
         return new Student();
+    }
+
+    @GetMapping("/courses")
+    public List<Przedmiot> returnCoursesOfConcreteUser(@RequestParam String login) {
+        return studentRepository.findByLogin(login).getPrzedmiotList();
+    }
+
+    @GetMapping("/studencik")
+    public double returnAverageGrade(@RequestParam String login) {
+        int size = studentRepository.findByLogin(login).getPrzedmiotList().size()-1;
+        double result = 0;
+        for (int i = 0; i <= size ; i++) {
+            if (studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaWyklad()!=0){
+
+                result+= studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaWyklad();
+            }else
+                result+= studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaCwiczenia();
+        }
+        return result/(size+1);
+
     }
 
 

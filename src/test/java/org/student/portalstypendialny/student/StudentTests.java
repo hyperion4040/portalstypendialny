@@ -13,6 +13,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.LinkedList;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,7 +44,7 @@ class StudentTests {
         mockMvc = MockMvcBuilders
                 .standaloneSetup(studentController)
                 .build();
-        student = new Student("hyperion", "hy@com", "password", "CS", 3);
+        student = new Student("hyperion", "hy@com", "password", "CS", 3,new LinkedList<>());
 
     }
 
