@@ -16,31 +16,32 @@ import org.student.portalstypendialny.user.UserRepository;
 //@PropertySource("classpath:cloudant.properties")
 public class PortalstypendialnyApplication {
 
+    @Autowired
+    public PortalstypendialnyApplication(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(PortalstypendialnyApplication.class, args);
     }
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Bean
     CommandLineRunner init(final StudentRepository studentRepository){
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
+        return args -> {
 
-                studentRepository.save(
-                        new Student("hyperion","hyp@com","ro","CS",2)
-                );
-                userRepository.deleteAll();
-                userRepository.save(new User("ultronik","Light"));
-                User user1 = userRepository.findByUsername("ultronik");
-                System.out.println(user1.getUsername() + " a program to "+user1.getUsername());
+            studentRepository.save(
+                    new Student("hyperion","hyp@com","ro","CS",2)
+            );
+            userRepository.deleteAll();
+            userRepository.save(new User("ultronik","Light"));
+            User user1 = userRepository.findByUsername("ultronik");
+            System.out.println(user1.getUsername() + " a program to "+user1.getUsername());
 
 //                personRepository.save(new Person("Adrian","Adrianos"));
 //                System.out.println(personRepository.findByFirstName("Adrianos"));
 
-            }
         };
     }
 

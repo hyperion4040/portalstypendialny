@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class StudentController {
 
+    private final StudentRepository studentRepository;
+
     @Autowired
-    private StudentRepository studentRepository;
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @GetMapping("/student")
     public Student findByLogin(@RequestParam String login){
@@ -17,10 +21,11 @@ public class StudentController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity postRegister(@RequestBody Student student){
+    public ResponseEntity<Student> postRegister(@RequestBody Student student){
         studentRepository.save(student);
-        return new ResponseEntity(student,HttpStatus.OK);
+        return new ResponseEntity<>(student,HttpStatus.OK);
     }
+
 
 
     @GetMapping("/")
@@ -28,6 +33,11 @@ public class StudentController {
         return "Witaj Adrian";
     }
 
+
+    @GetMapping("/test")
+    public Student returnTestStudentObject(){
+        return new Student();
+    }
 
 
    /* @GetMapping("/send")
@@ -49,22 +59,17 @@ public class StudentController {
        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
    }*/
 
-   /*@PostMapping("/login")
-   public String loginMethod(@RequestParam("username") String username,
-    @RequestParam("password") String password
-   ){
-        if (password.equals(studentRepository.findByLogin(username).getPassword())){
-            UserDetails.class.
+    /*@PostMapping("/login")
+    public String loginMethod(@RequestParam("username") String username,
+     @RequestParam("password") String password
+    ){
+         if (password.equals(studentRepository.findByLogin(username).getPassword())){
+             UserDetails.class.
 
-        }
+         }
 
 
-   }*/
-    /*@GetMapping("/send")
-    public String login(RedirectAttributes attr){
-        attr.addFlashAttribute("username","hyperion");
-        attr.addFlashAttribute("passwor","ro");
-        return "redirect:/login={username}{password}";
     }*/
+
 
 }
