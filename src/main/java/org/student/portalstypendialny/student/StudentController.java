@@ -11,21 +11,21 @@ import java.util.List;
 @RestController
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
     @Autowired
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     @GetMapping("/student")
     public Student findByLogin(@RequestParam String login){
-       return studentRepository.findByLogin(login);
+       return studentService.findByEmail(login);
     }
 
     @PostMapping("/registration")
     public ResponseEntity<Student> postRegister(@RequestBody Student student){
-        studentRepository.save(student);
+        studentService.saveStudent(student);
         return new ResponseEntity<>(student,HttpStatus.OK);
     }
 
@@ -44,23 +44,24 @@ public class StudentController {
 
     @GetMapping("/courses")
     public List<Przedmiot> returnCoursesOfConcreteUser(@RequestParam String login) {
-        return studentRepository.findByLogin(login).getPrzedmiotList();
+        return studentService.returnStudentCourses(login);
     }
 
     @GetMapping("/studencik")
     public double returnAverageGrade(@RequestParam String login) {
-        int size = studentRepository.findByLogin(login).getPrzedmiotList().size()-1;
-        double result = 0;
-        for (int i = 0; i <= size ; i++) {
-            if (studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaWyklad()!=0){
-
-                result+= studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaWyklad();
-            }else
-                result+= studentRepository.findByLogin(login).getPrzedmiotList().get(i).getOcenaCwiczenia();
-        }
-        return result/(size+1);
+        return studentService.returnAverageGrade(login);
 
     }
+
+
+  /*  @PostMapping("/wniosek")
+    public ResponseEntity<Podanie> napiszWniosek(
+            @RequestParam String login,
+            @RequestParam String uzasadnienie,
+            @RequestParam List<String> zalaczniki) {
+
+
+    }*/
 
 
    /* @GetMapping("/send")
