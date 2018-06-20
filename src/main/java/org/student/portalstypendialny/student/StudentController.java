@@ -4,23 +4,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.student.portalstypendialny.przedmiot.Przedmiot;
+
+import java.util.List;
 
 @RestController
 public class StudentController {
 
+    private final StudentService studentService;
+
     @Autowired
-    private StudentRepository studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/student")
     public Student findByLogin(@RequestParam String login){
-       return studentRepository.findByLogin(login);
+       return studentService.findByEmail(login);
     }
 
     @PostMapping("/registration")
-    public ResponseEntity postRegister(@RequestBody Student student){
-        studentRepository.save(student);
-        return new ResponseEntity(student,HttpStatus.OK);
+    public ResponseEntity<Student> postRegister(@RequestBody Student student){
+        studentService.saveStudent(student);
+        return new ResponseEntity<>(student,HttpStatus.OK);
     }
+
 
 
     @GetMapping("/")
@@ -28,6 +36,32 @@ public class StudentController {
         return "Witaj Adrian";
     }
 
+
+    @GetMapping("/test")
+    public Student returnTestStudentObject(){
+        return new Student();
+    }
+
+    @GetMapping("/courses")
+    public List<Przedmiot> returnCoursesOfConcreteUser(@RequestParam String login) {
+        return studentService.returnStudentCourses(login);
+    }
+
+    @GetMapping("/studencik")
+    public double returnAverageGrade(@RequestParam String login) {
+        return studentService.returnAverageGrade(login);
+
+    }
+
+
+  /*  @PostMapping("/wniosek")
+    public ResponseEntity<Podanie> napiszWniosek(
+            @RequestParam String login,
+            @RequestParam String uzasadnienie,
+            @RequestParam List<String> zalaczniki) {
+
+
+    }*/
 
 
    /* @GetMapping("/send")
@@ -49,22 +83,17 @@ public class StudentController {
        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
    }*/
 
-   /*@PostMapping("/login")
-   public String loginMethod(@RequestParam("username") String username,
-    @RequestParam("password") String password
-   ){
-        if (password.equals(studentRepository.findByLogin(username).getPassword())){
-            UserDetails.class.
+    /*@PostMapping("/login")
+    public String loginMethod(@RequestParam("username") String username,
+     @RequestParam("password") String password
+    ){
+         if (password.equals(studentRepository.findByLogin(username).getPassword())){
+             UserDetails.class.
 
-        }
+         }
 
 
-   }*/
-    /*@GetMapping("/send")
-    public String login(RedirectAttributes attr){
-        attr.addFlashAttribute("username","hyperion");
-        attr.addFlashAttribute("passwor","ro");
-        return "redirect:/login={username}{password}";
     }*/
+
 
 }

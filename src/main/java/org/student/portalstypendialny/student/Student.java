@@ -1,12 +1,17 @@
 package org.student.portalstypendialny.student;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Transient;
+import org.student.portalstypendialny.przedmiot.Przedmiot;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Entity
@@ -14,6 +19,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "STUDENT")
 public class Student {
 
 
@@ -22,9 +28,9 @@ public class Student {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "emal", nullable = false, unique = true)
-    @Email(message = "Please enter valid email")
-    @NotNull(message = "Please enter email")
+    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Wprowadź email ze wszystkimi niezbędnymi elementami ")
+    @NotNull(message = "Wprowadź email")
     private String email;
     @Column(name = "password")
     @Transient
@@ -36,6 +42,11 @@ public class Student {
     @Column(name = "year")
     @NotNull(message = "Wprowadz rok studiów na jakich jesteś")
     private int year;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Przedmiot> przedmiotList;
+
 
 }
 

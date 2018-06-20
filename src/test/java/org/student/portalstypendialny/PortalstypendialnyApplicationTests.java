@@ -36,7 +36,11 @@ public class PortalstypendialnyApplicationTests {
     @Autowired
     private WebApplicationContext context;
 
+
     private MockMvc mvc;
+
+
+
 
     @Before
     public void setup(){
