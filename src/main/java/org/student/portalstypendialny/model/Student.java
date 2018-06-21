@@ -1,4 +1,4 @@
-package org.student.portalstypendialny.student;
+package org.student.portalstypendialny.model;
 
 
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Transient;
-import org.student.portalstypendialny.przedmiot.Przedmiot;
+import org.student.portalstypendialny.model.Przedmiot;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

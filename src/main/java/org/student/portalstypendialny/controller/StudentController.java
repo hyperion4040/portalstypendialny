@@ -1,10 +1,13 @@
-package org.student.portalstypendialny.student;
+package org.student.portalstypendialny.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.student.portalstypendialny.przedmiot.Przedmiot;
+import org.springframework.web.servlet.ModelAndView;
+import org.student.portalstypendialny.model.Przedmiot;
+import org.student.portalstypendialny.model.Student;
+import org.student.portalstypendialny.service.StudentService;
 
 import java.util.List;
 
@@ -19,26 +22,25 @@ public class StudentController {
     }
 
     @GetMapping("/student")
-    public Student findByLogin(@RequestParam String login){
-       return studentService.findByEmail(login);
+    public Student findByLogin(@RequestParam String login) {
+        return studentService.findByEmail(login);
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<Student> postRegister(@RequestBody Student student){
+    public ResponseEntity<Student> postRegister(@RequestBody Student student) {
         studentService.saveStudent(student);
-        return new ResponseEntity<>(student,HttpStatus.OK);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
 
-
     @GetMapping("/")
-    public String welcomePage(){
+    public String welcomePage() {
         return "Witaj Adrian";
     }
 
 
     @GetMapping("/test")
-    public Student returnTestStudentObject(){
+    public Student returnTestStudentObject() {
         return new Student();
     }
 
@@ -51,6 +53,12 @@ public class StudentController {
     public double returnAverageGrade(@RequestParam String login) {
         return studentService.returnAverageGrade(login);
 
+    }
+
+    @GetMapping("/biblioteka")
+    public ModelAndView returnLibrary() {
+        final String url = "https://biblioteka.wsb.gda.pl/cgi-bin/wspd_cgi.sh/WService=wsbroker1/wo2_search.p?R=1&IDBibl=93&ID1=IOIFINNLNMKEFHIRKON&ln=pl";
+        return new ModelAndView("redirect:" + url);
     }
 
 

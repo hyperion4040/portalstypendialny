@@ -6,11 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.student.portalstypendialny.przedmiot.Przedmiot;
-import org.student.portalstypendialny.student.Student;
-import org.student.portalstypendialny.student.StudentRepository;
-import org.student.portalstypendialny.user.User;
-import org.student.portalstypendialny.user.UserRepository;
+import org.student.portalstypendialny.model.Przedmiot;
+import org.student.portalstypendialny.model.Student;
+import org.student.portalstypendialny.repository.StudentRepository;
+import org.student.portalstypendialny.model.User;
+import org.student.portalstypendialny.repository.UserRepository;
 
 import java.util.LinkedList;
 import java.util.List;

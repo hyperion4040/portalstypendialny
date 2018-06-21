@@ -1,4 +1,4 @@
-package org.student.portalstypendialny.podanie;
+package org.student.portalstypendialny.model;
 
 import lombok.*;
 
