@@ -4,6 +4,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +37,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("/student")
+    @GetMapping(value = "/student",produces = MediaType.APPLICATION_JSON_VALUE)
     public Student findByLogin(@RequestParam String login) {
         return studentService.findByLogin(login);
     }
