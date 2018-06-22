@@ -2,7 +2,6 @@ package org.student.portalstypendialny.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -12,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.student.portalstypendialny.model.Student;
 import org.student.portalstypendialny.repository.StudentRepository;
 
-@Configuration
+//@Configuration
 public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
 

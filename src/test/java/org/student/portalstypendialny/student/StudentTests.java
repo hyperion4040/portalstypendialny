@@ -85,13 +85,13 @@ class StudentTests {
     }
 
 
-    void testReturnAverageGrade() throws Exception {
+    /*void testReturnAverageGrade() throws Exception {
         when(studentController.returnAverageGrade("hyperion")).thenReturn(4.0);
         mockMvc
                 .perform(get("/studencik"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("4.0")));
-    }
+    }*/
 
 
 }

@@ -6,10 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.context.request.RequestContextListener;
 import org.student.portalstypendialny.model.Przedmiot;
 import org.student.portalstypendialny.model.Student;
-import org.student.portalstypendialny.repository.StudentRepository;
 import org.student.portalstypendialny.model.User;
+import org.student.portalstypendialny.repository.StudentRepository;
 import org.student.portalstypendialny.repository.UserRepository;
 
 import java.util.LinkedList;
@@ -32,11 +33,16 @@ public class PortalstypendialnyApplication {
     private final UserRepository userRepository;
 
     @Bean
+    public RequestContextListener requestContextListener() {
+        return new RequestContextListener();
+    }
+
+    @Bean
     CommandLineRunner init(final StudentRepository studentRepository){
         return args -> {
             Przedmiot przedmiot = new Przedmiot("Programowanie w języku java");
             Przedmiot przedmiot2 = new Przedmiot("Programowanie w języku c++");
-            przedmiot.setOcenaCwiczenia(4);
+            przedmiot.setOcenaCwiczenia(5);
             przedmiot2.setOcenaWyklad(4);
             przedmiot2.setOcenaCwiczenia(5);
             List<Przedmiot> list = new LinkedList<>();
@@ -44,6 +50,14 @@ public class PortalstypendialnyApplication {
             list.add(przedmiot2);
             studentRepository.save(
                     new Student("hyperion","hyp@com","ro","CS",2,list));
+
+
+            Przedmiot przedmiotA = new Przedmiot("Bazy danych",4.0,4.5);
+            List<Przedmiot> przedmiotList = new LinkedList<>();
+            przedmiotList.add(przedmiotA);
+            studentRepository.save(
+              new Student("ga","hy@com.pl","ro","CS",3,przedmiotList));
+
 
             userRepository.deleteAll();
             userRepository.save(new User("ultronik","Light"));

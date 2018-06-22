@@ -2,7 +2,7 @@ package org.student.portalstypendialny.model;
 
 import lombok.*;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +13,7 @@ public class Podanie {
 
     @Setter
     @NonNull
-    private Date data;
+    private GregorianCalendar data;
 
     @Setter
     private String uzasadnieniePodania;

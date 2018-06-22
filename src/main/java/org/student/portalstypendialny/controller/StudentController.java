@@ -1,14 +1,21 @@
 package org.student.portalstypendialny.controller;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.student.portalstypendialny.model.Przedmiot;
 import org.student.portalstypendialny.model.Student;
 import org.student.portalstypendialny.service.StudentService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,9 +28,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @GetMapping("/rola")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().toString();
+    }
+
+
     @GetMapping("/student")
     public Student findByLogin(@RequestParam String login) {
-        return studentService.findByEmail(login);
+        return studentService.findByLogin(login);
     }
 
     @PostMapping("/registration")
@@ -48,11 +63,24 @@ public class StudentController {
     public List<Przedmiot> returnCoursesOfConcreteUser(@RequestParam String login) {
         return studentService.returnStudentCourses(login);
     }
-
+//    @PostAuthorize("returnObject.body.username == principal.username")
     @GetMapping("/studencik")
+    @PostAuthorize("#login == authentication.principal ")
     public double returnAverageGrade(@RequestParam String login) {
+
         return studentService.returnAverageGrade(login);
 
+
+    }
+
+    @GetMapping("/tenStudent")
+    @PostAuthorize("#login == principal")
+    public double returnCurrentStudent(@RequestParam(defaultValue = "",required = false) String login, Principal principal) {
+        if (login.isEmpty()) {
+
+            return studentService.returnAverageGrade(principal.getName());
+        }else
+            return studentService.returnAverageGrade(login);
     }
 
     @GetMapping("/biblioteka")
@@ -60,6 +88,49 @@ public class StudentController {
         final String url = "https://biblioteka.wsb.gda.pl/cgi-bin/wspd_cgi.sh/WService=wsbroker1/wo2_search.p?R=1&IDBibl=93&ID1=IOIFINNLNMKEFHIRKON&ln=pl";
         return new ModelAndView("redirect:" + url);
     }
+
+
+    @GetMapping(value = "/Podanie", produces = "application/pdf")
+    public String returnPodanieView(@RequestParam String login) throws DocumentException {
+        Document document = studentService.returnPodaniePdfView("Jakies", login);
+        document.open();
+        document.getHtmlStyleClass();
+        return String.valueOf(document);
+
+    }
+
+
+
+    /*@GetMapping("/loginPage")
+    public void login( @RequestParam String username, @RequestParam String password) {
+        AuthenticationManager am = authentication -> {
+            if (authentication.getName().equals(authentication.getCredentials())) {
+                return new UsernamePasswordAuthenticationToken(authentication.getName()
+                ,authentication.getCredentials()
+                );
+            }
+            throw new BadCredentialsException("Bad Credentials");
+        };
+
+        Authentication request = new UsernamePasswordAuthenticationToken(username,password);
+        Authentication result = am.authenticate(request);
+        SecurityContextHolder.getContext().setAuthentication(result);
+
+    }*/
+
+
+/*@GetMapping("/login")
+    public String loginPage(@RequestParam String username, @RequestParam String password) {
+        MyUserDetailsService service = new MyUserDetailsService();
+        if (
+        service.loadUserByUsername(username).getUsername().equals(username)&&
+        service.loadUserByUsername(username).getPassword().equals(password)){
+
+            return "redirect:/";
+        }else
+            return "redirect:/login?error";
+    }*/
+
 
 
   /*  @PostMapping("/wniosek")
@@ -102,6 +173,6 @@ public class StudentController {
 
 
     }*/
-
-
 }
+
+
