@@ -12,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.student.portalstypendialny.controller.StudentController;
+import org.student.portalstypendialny.model.Student;
+import org.student.portalstypendialny.repository.StudentRepository;
 
 import java.util.LinkedList;
 
@@ -80,6 +83,15 @@ class StudentTests {
                 .perform(get("/student"))
                 .andExpect(status().isOk());
     }
+
+
+    /*void testReturnAverageGrade() throws Exception {
+        when(studentController.returnAverageGrade("hyperion")).thenReturn(4.0);
+        mockMvc
+                .perform(get("/studencik"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("4.0")));
+    }*/
 
 
 }

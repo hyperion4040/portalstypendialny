@@ -1,4 +1,4 @@
-package org.student.portalstypendialny.user;
+package org.student.portalstypendialny.model;
 
 
 import lombok.AllArgsConstructor;

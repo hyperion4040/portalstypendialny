@@ -1,4 +1,4 @@
-package org.student.portalstypendialny.student;
+package org.student.portalstypendialny.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
